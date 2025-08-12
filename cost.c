@@ -1,6 +1,6 @@
 //funtion to calculate the cost and set the cost field in the node
 
-void    cost(node target_node, node match_node, node stack_a, node_stack_b)
+void    cost(node target_node, node match_node, node stack_a, nod_stack_b)
 {
     int cost;
     int len_a;
