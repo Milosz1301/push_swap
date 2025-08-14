@@ -23,6 +23,7 @@ node	*create_node(int value)
 	newnode = (node *)malloc(sizeof(node));
 	if (!newnode)
 		return (NULL);
+	new_node->prev = NULL;
 	newnode->data = value;
 	newnode->link = NULL;
 	return (newnode);

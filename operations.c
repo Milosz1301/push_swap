@@ -1,245 +1,284 @@
 #include <stdio.h>
 #include <stdlib.h>
 
-typedef struct node
+
+typedef struct s_t_node
 {
 	int		data;
-	struct node	*link;
-} node;
+	int		cost;
+	int		index;
+	t_node	*prev;
+	t_node	*next;
+} t_node;
 
-typedef struct	linkedlist 
+void	sa(t_node **node_a)
 {
-	node	*head;
-} stack;
+	t_node	*temp;
 
-void	sa(stack *stack_a)
-{
-	node	*temp;
-
-	if (!stack_a->head)
+	if (!node_a)
+		return ;	
+	if (!*node_a)
 		return ;
-	if (!stack_a->head->link)
+	if (!(*node_a)->next)
 		return ;
-	temp = stack_a->head->link;
-	stack_a->head->link = stack_a->head->link->link;
-	temp->link = stack_a->head;
-	stack_a->head = temp;
+	temp = (*node_a)->next;
+	(*node_a)->next = (*node_a)->next->next;
+	temp->next = *node_a;
+	(*node_a) = temp;
+	(*node_a)->prev = NULL;
+	(*node_a)->next->prev = *node_a;
+	if(! (*node_a)->next->next)
+		(*node_a)->next->next->prev = (*node_a)->next;
 }
 
-void	sb(stack *stack_b)
+void	sb(t_node **node_b)
 {
-	node	*temp;
+	t_node	*temp;
 
-	if (!stack_b->head)
+	if (!node_b)
 		return ;
-	if (!stack_b->head->link)
+	if (!*node_b)
 		return ;
-	temp = stack_b->head->link;
-	stack_b->head->link = stack_b->head->link->link;
-	temp->link = stack_b->head;
-	stack_b->head = temp;
+	if (!(*node_b)->next)
+		return ;
+	temp = (*node_b)->next;
+	(*node_b)->next = (*node_b)->next->next;
+	temp->next = *node_b;
+	*node_b = temp;
+	(*node_b)->prev = NULL;
+	(*node_b)->next->prev = node_b
+	if (!(*node_b)->next->next)
+		(*node_b)->next->next->prev = (*node_b)->next;
 }
 
-void	ss(stack *stack_a, stack *stack_b)
+void	ss(t_node **node_a, t_node **node_b)
 {
-	sa(stack_a);
-	sb(stack_b);
+	sa(node_a);
+	sb(node_b);
 }
 
-void	pa(stack *stack_a, stack *stack_b)
+void	pa(t_node **node_a, t_node **node_b)
 {
-	node	*temp;
+	t_node	*temp;
 
-	if (!stack_b->head)
+	if (!node_b)
 		return ;
-	temp = stack_b->head->link; 
-	stack_b->head->link = stack_a->head;
-	stack_a->head = stack_b->head;
-	stack_b->head = temp;
+	if (!*node_b)
+		return ;
+	temp = (*node_b)->next; 
+	(*node_b)->next = *node_a;
+	*node_a = *node_b;
+	*node_b = temp;
+	if(!(*node_a)->next)
+		(*node_a)->next->prev = *node_a;
+	if (!(*node_b)->next)
+		(*node_b)->next->prev = *node_b;
 }
 
-void	pb(stack *stack_a, stack *stack_b)
+void	pb(t_node **node_a, t_node **node_b)
 {
-	node	*temp;
+	t_node	*temp;
 
-	if (!stack_a->head)
+	if (!node_a)
 		return ;
-	temp = stack_a->head->link; 
-	stack_a->head->link = stack_b->head;
-	stack_b->head = stack_a->head;
-	stack_a->head = temp;
+	if (!*node_a)
+		return ;
+	temp = (*node_a)->next; 
+	(*node_a)->next = *node_b;
+	*node_b = *node_a;
+	*node_a = temp;
+	if(!(*node_a)->next)
+		(*node_a)->next->prev = *node_a;
+	if (!(*node_b)->next)
+		(*node_b)->next->prev = *node_b;
 }
 
-void	ra(stack *stack_a)
+void	ra(t_node **node_a)
 {
-	node	*temp;
-	node	*current;
+	t_node	*temp;
+	t_node	*current;
 
-	if (!stack_a->head)
+	if (!node_a)
 		return ;
-	if (!stack_a->head->link)
+	if (!*node_a)
 		return ;
-	temp = stack_a->head;
+	if (!(*node_a)->next)
+		return ;
+	temp = *node_a;
 	current = temp;
-	stack_a->head = stack_a->head->link;
-	while (current->link)
-		current = current->link;
-	current->link = temp;
-	temp->link = NULL;
+	*node_a = (*node_a)->next;
+	while (current->next->next)
+		current = current->next;
+	current->next->next = temp;
+	temp->next = NULL;
+	temp->prev = current->next;
+	(*node_a)->prev = NULL;
 }
 
-void	rb(stack *stack_b)
+void	rb(t_node **node_b)
 {
-	nod	*temp;
-	node	*current;
+	t_node	*temp;
+	t_node	*current;
 
-	if (!stack_b->head)
+	if (!node_b)
 		return ;
-	if (!stack_b->head->link)
+	if (!*node_b)
 		return ;
-	temp = stack_b->head;
+	if (!(*node_b)->next)
+		return ;
+	temp = node_b;
 	current = temp;
-	stack_b->head = stack_b->head->link;
-	while (current->link)
-		current = current->link;
-	current->link = temp;
-	temp->link = NULL;
+	*node_b = (*node_b)->next;
+	while (current->next->next)
+		current = current->next;
+	current->next->next = temp;
+	temp->next = NULL;
+	temp->prev = current->next;
+	(*node_b)->prev = NULL;
 }
 
-void	rr(stack *stack_a, stack *stack_b)
+void	rr(t_node **node_a, t_node **node_b)
 {
-	ra(stack_a);
-	rb(stack_b);
+	ra(node_a);
+	rb(node_b);
 }
 
-void	rra(stack *stack_a)
+void	rra(t_node **node_a)
 {
-	node	*temp;
-	node	*current;
+	t_node	*temp;
+	t_node	*current;
 
-	if (!stack_a->head)
+	if (!node_a)
 		return ;
-	if (!stack_a->head->link)
+	if (!*node_a)
 		return ;
-	current = stack_a->head;
-	while (current->link->link)
-		current = current->link;
-	temp = current->link;
-	current->link = NULL;
-	temp->link = stack_a->head;
-	stack_a->head = temp;
-}
-
-void	rrb(stack *stack_b)
-{
-	node	*temp;
-	node	*current;
-
-	if (!stack_b->head)
+	if (!(*node_a)->next)
 		return ;
-	if (!stack_b->head->link)
+	current = *node_a;
+	while (current->next->next)
+		current = current->next;
+	temp = current->next;
+	current->next = NULL;
+	temp->next = *node_a;
+	*node_a = temp;
+	(*node_a)->next->prev = *node_a;
+	(*node_a)->prev = NULL;
+}
+
+void	rrb(t_node **node_b)
+{
+	t_node	*temp;
+	t_node	*current;
+
+	if (!node_b)
 		return ;
-	current = stack_b->head;
-	while (current->link->link)
-		current = current->link;
-	temp = current->link;
-	current->link = NULL;
-	temp->link = stack_b->head;
-	stack_b->head = temp;
+	if (!*node_b)
+		return ;
+	if (!(*node_b)->next)
+		return ;
+	current = *node_b;
+	while (current->next->next)
+		current = current->next;
+	temp = current->next;
+	current->next = NULL;
+	temp->next = *node_b;
+	*node_b = temp;
+	(*node_b)->next->prev = *node_b;
+	(*node_b)->prev = NULL;
 }
 
-void	rrr(stack *stack_a, stack *stack_b)
+void	rrr(t_node **node_a, t_node **node_b)
 {
-	rra(stack_a);
-	rrb(stack_b);
+	rra(node_a);
+	rrb(node_b);
 }
 
-node	*create_node(int value)
+t_node	*create_t_node(int value)
 {
-	node	*newnode;
+	t_node	*newt_node;
 
-	newnode = (node *)malloc(sizeof(node));
-	newnode->data = value;
-	newnode->link = NULL;
-	return (newnode);
+	newt_node = (t_node *)malloc(sizeof(t_node));
+	newt_node->data = value;
+	newt_node->next = NULL;
+	return (newt_node);
 }
 
-void	printlist(stack *list)
+void	printlist(t_node *list)
 {
-	node	*current;
+	t_node	*current;
 
-	current = list->head;
+	current = list;
 	while (current)
 	{
 		printf("%d	",current->data);
-		current = current->link;
+		current = current->next;
 	}
 	printf("\n");
 }
 
 int	main(void)
 {
-	stack	stack_a;
-	stack	stack_b;
+	t_node	node_a;
+	t_node	node_b;
 
-	stack_a.head = create_node(1);
-	stack_a.head->link = create_node(2);
-	stack_a.head->link->link = create_node(3);
-	stack_a.head->link->link->link = create_node(4);
-	stack_a.head->link->link->link->link = create_node(5);
+	node_a.head = create_t_node(1);
+	node_a.head->next = create_t_node(2);
+	node_a.head->next->next = create_t_node(3);
+	node_a.head->next->next->next = create_t_node(4);
+	node_a.head->next->next->next->next = create_t_node(5);
 
-	stack_b.head = create_node(10);
-	stack_b.head->link = create_node(20);
-	stack_b.head->link->link = create_node(30);
-	stack_b.head->link->link->link = create_node(40);
-	stack_b.head->link->link->link->link = create_node(50);
+	node_b.head = create_t_node(10);
+	node_b.head->next = create_t_node(20);
+	node_b.head->next->next = create_t_node(30);
+	node_b.head->next->next->next = create_t_node(40);
+	node_b.head->next->next->next->next = create_t_node(50);
 
-	printf("Stack_a:\n");
-	printlist(&stack_a);
-	printf("Stack_b:\n");
-	printlist(&stack_b);	
-	sa(&stack_a);
+	printf("node_a:\n");
+	printlist(&node_a);
+	printf("node_b:\n");
+	printlist(&node_b);	
+	sa(&node_a);
 	printf("SA:\n");
-	printlist(&stack_a);
-	printlist(&stack_b);
+	printlist(&node_a);
+	printlist(&node_b);
 	printf("SB:\n");
-	sb(&stack_b);
-	printlist(&stack_a);
-	printlist(&stack_b);
+	sb(&node_b);
+	printlist(&node_a);
+	printlist(&node_b);
 	printf("SS:\n");
-	ss(&stack_a, &stack_b);
-	printlist(&stack_a);
-	printlist(&stack_b);
+	ss(&node_a, &node_b);
+	printlist(&node_a);
+	printlist(&node_b);
 	printf("PA:\n");
-	pa(&stack_a, &stack_b);
-	printlist(&stack_a);
-	printlist(&stack_b);
+	pa(&node_a, &node_b);
+	printlist(&node_a);
+	printlist(&node_b);
 	printf("PB:\n");
-	pb(&stack_a, &stack_b);
-	printlist(&stack_a);
-	printlist(&stack_b);
+	pb(&node_a, &node_b);
+	printlist(&node_a);
+	printlist(&node_b);
 	printf("RA:\n");
-	ra(&stack_a);
-	printlist(&stack_a);
-	printlist(&stack_b);
+	ra(&node_a);
+	printlist(&node_a);
+	printlist(&node_b);
 	printf("RB:\n");
-	rb(&stack_b);
-	printlist(&stack_a);
-	printlist(&stack_b);
+	rb(&node_b);
+	printlist(&node_a);
+	printlist(&node_b);
 	printf("RR:\n");
-	rr(&stack_a, &stack_b);
-	printlist(&stack_a);
-	printlist(&stack_b);
+	rr(&node_a, &node_b);
+	printlist(&node_a);
+	printlist(&node_b);
 	printf("RRA:\n");
-	rra(&stack_a);
-	printlist(&stack_a);
-	printlist(&stack_b);
+	rra(&node_a);
+	printlist(&node_a);
+	printlist(&node_b);
 	printf("RRB:\n");
-	rrb(&stack_b);
-	printlist(&stack_a);
-	printlist(&stack_b);
+	rrb(&node_b);
+	printlist(&node_a);
+	printlist(&node_b);
 	printf("RRR:\n");
-	rrr(&stack_a, &stack_b);
-	printlist(&stack_a);
-	printlist(&stack_b);
+	rrr(&node_a, &node_b);
+	printlist(&node_a);
+	printlist(&node_b);
 }
