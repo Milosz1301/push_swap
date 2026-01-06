@@ -6,7 +6,7 @@
 /*   By: mstawski <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/08/25 13:06:23 by mstawski          #+#    #+#             */
-/*   Updated: 2025/09/01 12:13:12 by mstawski         ###   ########.fr       */
+/*   Updated: 2025/08/31 14:02:01 by mstawski         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 #include "push_swap.h"
@@ -107,10 +107,7 @@ void	check_dup(t_node **stack)
 		while (cur2)
 		{
 			if (cur2->data == current->data)
-			{
-				free_stack(stack);
 				exit_with_error();
-			}
 			cur2 = cur2->next;
 		}
 		current = current->next;
