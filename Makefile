@@ -9,15 +9,14 @@ SRC =  main.c core_operations.c cost_target.c cost_operations.c ab_stack_operati
        stack_utils.c utils.c utils2.c
 
 OBJ = $(SRC:.c=.o)
-OBJ := $(addprefix obc/,$(OBJ))
+OBJ := $(addprefix obj/,$(OBJ))
 
 OBJ_DIR = obj/
-SRC_DIR = src/
 
 all: $(NAME)
 
 $(NAME): $(OBJ_DIR) $(OBJ)
-	$(CC) $(CFLAGS) -c $(SRC) 
+	$(CC) $(OBJ) -o $(NAME)
 
 obj/%.o: src/%.c
 	$(CC) $(CFLAGS) -c -o $@ $^
