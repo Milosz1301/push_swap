@@ -43,3 +43,15 @@ The project emphasizes:
 - Efficient logical structuring of stack operations
 - Clear separation of concerns within the codebase
 - Consistent behavior across all edge cases, including duplicates, invalid input, and extreme values
+
+## Build and usage
+'''bash
+# Clone the repository
+git clone git@github.com:miluns/push_swap.git
+cd push_swap
+
+# Compile the program
+make
+
+# Run the program with multiple numbers as input (example)
+./push_swap 1337 2137 42 1301 2001
