@@ -13,10 +13,10 @@ The program:
 - Outputs the operations in the exact order needed to complete the transformation.
 
 The allowed operations include: 
-- Swap: interchange the top elements of a stack.
-- Push: move the top element from one stack to another.
-- Rotate: shift all elements of a stack upward.
-- Reverse Rotate: shift all elements downward.
+- **Swap**: interchange the top elements of a stack.
+- **Push**: move the top element from one stack to another.
+- **Rotate**: shift all elements of a stack upward.
+- **Reverse Rotate**: shift all elements downward.
 
 These constraints require a carefully structured approach to produce a minimal or near‑minimal instruction set.
 
@@ -38,9 +38,8 @@ ra
 pa
 ```
 ## Project Characteristics
-
 The project emphasizes:
 - Deterministic control over data transformations
-- Efficient logical structuring of stack operations\
-- Clear separation of concerns within the codebase\
+- Efficient logical structuring of stack operations
+- Clear separation of concerns within the codebase
 - Consistent behavior across all edge cases, including duplicates, invalid input, and extreme values
