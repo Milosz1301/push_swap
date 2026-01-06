@@ -45,7 +45,7 @@ The project emphasizes:
 - Consistent behavior across all edge cases, including duplicates, invalid input, and extreme values
 
 ## Build and usage
-'''bash
+```bash
 # Clone the repository
 git clone git@github.com:miluns/push_swap.git
 cd push_swap
