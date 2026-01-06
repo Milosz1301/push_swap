@@ -39,8 +39,8 @@ pa
 ```
 ## Project Characteristics
 
-The project emphasizes: - Deterministic control over data transformations\
-
-    Efficient logical structuring of stack operations\
-    Clear separation of concerns within the codebase\
-    Consistent behavior across all edge cases, including duplicates, invalid input, and extreme values
+The project emphasizes:
+- Deterministic control over data transformations
+- Efficient logical structuring of stack operations\
+- Clear separation of concerns within the codebase\
+- Consistent behavior across all edge cases, including duplicates, invalid input, and extreme values
