@@ -24,7 +24,7 @@ These constraints require a carefully structured approach to produce a minimal o
 
 The sorting method adapts based on dataset size:
 - Smaller datasets rely on direct, deterministic instruction patterns.
-- Larger input sizes benefit from strategies such as chunk segmentation, cost‑based movement, and optimized rotations.
+- Larger input sizes benefit from strategies such as chunk segmentation, cost‑based movement and optimized rotations.
 
 The combination ensures predictable behavior and consistent performance across varying input complexities.
 
